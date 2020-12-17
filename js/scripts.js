@@ -98,6 +98,7 @@ function populate_answers(listOfResults) {
 	}
 	div.appendChild(ul)
 	document.body.appendChild(div)
+	document.getElementById('searchResults').scrollIntoView()
 }
 function searchSubmit() {
 	let searchQuery = document.getElementById('searchQuery').value
