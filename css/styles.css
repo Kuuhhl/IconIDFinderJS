@@ -1,0 +1,49 @@
+p, h1, h2, h3 {
+    font-family: "Roboto", sans-serif;
+}
+#searchForm {
+    display: inline-block;
+    font-size: 80px;
+    width: 100%;
+}
+#searchQuery {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 5px;
+}
+#submitQuery {
+    font-family: "Roboto", sans-serif;
+    font-size: 40px;
+    width: 100%;
+    height: 100px;
+}
+input[type="text"] {
+    font-size:100px;
+    font-family: "Roboto", sans-serif;
+}
+input {
+    text-align: center;
+    }
+button {
+	padding: 15px 32px;
+    margin-top: 5px;
+	display: block
+	display: inline-block;
+    width: 100%;
+    font-family: "Roboto", sans-serif;
+    font-size: 20px;
+}
+
+body {
+	text-align: center;
+	background-color: rgb(27, 27, 27);
+	color: white;
+}
+li {
+	display: grid;
+}
+ul {
+	list-style-type: none;
+	display: block;
+	border: 3px solid rgb(161, 161, 161);
+}
