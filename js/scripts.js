@@ -27,7 +27,7 @@ function get_JSON(url) {
 function parse_JSON_background(searchQuery) {
 	let backgrounds
 	get_JSON(
-		'http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json'
+		'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json'
 	).then((data) => {
 		backgrounds = data
 		var listOfResults = []
@@ -41,7 +41,7 @@ function parse_JSON_background(searchQuery) {
 				backgroundDict = {
 					backgroundTitle: background.name,
 					backgroundImageLink:
-						'http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes' +
+						'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes' +
 						background.splashPath.match('(?<=splashes).*'),
 					backgroundId: background.id,
 					backgroundDescription: background.description,
