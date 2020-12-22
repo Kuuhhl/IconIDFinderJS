@@ -18,7 +18,8 @@
 			<p >Input Search term:</p>
 			<form onsubmit="return false" autocomplete="off">
 				<input type="text" id="searchQuery" spellcheck="false" required>
-				<input type="submit" id="submitQuery" value="Submit", onclick="searchSubmit()">
+				<input type="submit" id="submitQuery" value="Search for Icon", onclick="searchSubmit(true)">
+				<input type="submit" id="submitQuery" value="Search for Background", onclick="searchSubmit(false)">
 			</form>
 		</div>
 		<a onclick="topFunction()" id="topBtn" aria-label="Scroll back to top">

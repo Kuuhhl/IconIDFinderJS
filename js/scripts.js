@@ -24,8 +24,35 @@ function get_JSON(url) {
 			console.log('Fetch Error :-S', err)
 		})
 }
-
-function parse_JSON(searchQuery) {
+function parse_JSON_background(searchQuery) {
+	let backgrounds
+	get_JSON(
+		'http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json'
+	).then((data) => {
+		backgrounds = data
+		var listOfResults = []
+		for (index in backgrounds) {
+			background = backgrounds[index]
+			if (
+				background.name
+					.toLowerCase()
+					.includes(searchQuery.toLowerCase())
+			) {
+				backgroundDict = {
+					backgroundTitle: background.name,
+					backgroundImageLink:
+						'http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes' +
+						background.splashPath.match('(?<=splashes).*'),
+					backgroundId: background.id,
+					backgroundDescription: background.description,
+				}
+				listOfResults.push(backgroundDict)
+			}
+		}
+		populate_answers_background(listOfResults)
+	})
+}
+function parse_JSON_icon(searchQuery) {
 	let icons
 	get_JSON(
 		'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json'
@@ -52,10 +79,10 @@ function parse_JSON(searchQuery) {
 				listOfResults.push(iconDict)
 			}
 		}
-		populate_answers(listOfResults)
+		populate_answers_icon(listOfResults)
 	})
 }
-function populate_answers(listOfResults) {
+function populate_answers_icon(listOfResults) {
 	let div = document.createElement('div')
 	div.setAttribute('id', 'searchResults')
 
@@ -100,7 +127,50 @@ function populate_answers(listOfResults) {
 	document.body.appendChild(div)
 	document.getElementById('searchResults').scrollIntoView()
 }
-function searchSubmit() {
+function populate_answers_background(listOfResults) {
+	let div = document.createElement('div')
+	div.setAttribute('id', 'searchResults')
+	let ul = document.createElement('ul')
+	for (index in listOfResults) {
+		background = listOfResults[index]
+
+		backgroundTitle = background.backgroundTitle
+		backgroundImageLink = background.backgroundImageLink
+		backgroundId = background.backgroundId
+		backgroundDescription = background.backgroundDescription
+		if (backgroundDescription == null) {
+			backgroundDescription = ' - '
+		}
+		li = document.createElement('li')
+		li.innerHTML = `
+		<li>
+		<header>	
+		<h2>${backgroundTitle}</h2>
+		</header>
+
+		<header>
+		<h3>ID: </h3>
+		<p>${backgroundId}</p>
+		</header>
+
+		<header>
+		<h3>Description: </h3>
+		<p>${backgroundDescription}</p>
+		</header>
+
+		<a><img src=${backgroundImageLink} alt=${backgroundTitle}/></a>
+		<br>
+		<button onclick="window.open('${backgroundImageLink}','_blank');" type="button">Open image in new window</button>
+		<button onclick="copyToClipboard(${backgroundId});" type="button">Copy ID to clipboard</button>
+		</li>`
+		ul.appendChild(li)
+	}
+	div.appendChild(ul)
+	document.body.appendChild(div)
+	document.getElementById('searchResults').scrollIntoView()
+}
+function searchSubmit(type) {
+	//TRUE: icon; FALSE: background
 	let searchQuery = document.getElementById('searchQuery').value
 	document.getElementById('searchQuery').value = ''
 	try {
@@ -108,10 +178,14 @@ function searchSubmit() {
 	} catch {
 		console.log('First search')
 	}
-	parse_JSON(searchQuery)
+	if (type == true) {
+		parse_JSON_icon(searchQuery)
+	} else {
+		parse_JSON_background(searchQuery)
+	}
 }
-function copyToClipboard(iconId) {
-	window.prompt('To copy, press CTRL+C: ', iconId)
+function copyToClipboard(Id) {
+	window.prompt('To copy, press CTRL+C: ', Id)
 }
 
 window.onscroll = function () {
