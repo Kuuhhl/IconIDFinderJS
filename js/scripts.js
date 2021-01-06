@@ -1,3 +1,21 @@
+window.onload = function LastUpdated() {
+	var xhr = new XMLHttpRequest()
+	xhr.open(
+		'HEAD',
+		'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json'
+	)
+
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState === 4) {
+			console.log(xhr.status)
+			let lastUpdated = xhr.getResponseHeader('Last-Modified')
+			document.getElementById(
+				'lastUpdated'
+			).innerHTML = `Last updated: ${lastUpdated}`
+		}
+	}
+	xhr.send()
+}
 //wrapper function to remove element from DOM
 function removeElement(id) {
 	var elem = document.getElementById(id)

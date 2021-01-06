@@ -1,6 +1,9 @@
 p, h1, h2, h3 {
     font-family: "Roboto", sans-serif;
 }
+#lastUpdated{
+    font-size: 20px;
+}
 #searchForm {
     display: inline-block;
     font-size: 80px;
