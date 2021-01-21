@@ -1,8 +1,8 @@
-window.onload = function LastUpdated() {
+window.onload = function LastUpdamed() {
 	var xhr = new XMLHttpRequest()
 	xhr.open(
 		'HEAD',
-		'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json'
+		'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/skins.json'
 	)
 
 	xhr.onreadystatechange = function () {
@@ -45,7 +45,7 @@ function get_JSON(url) {
 function parse_JSON_background(searchQuery) {
 	let backgrounds
 	get_JSON(
-		'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json'
+		'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/skins.json'
 	).then((data) => {
 		backgrounds = data
 		var listOfResults = []
@@ -59,7 +59,7 @@ function parse_JSON_background(searchQuery) {
 				backgroundDict = {
 					backgroundTitle: background.name,
 					backgroundImageLink:
-						'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes' +
+						'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes' +
 						background.splashPath.match('(?<=splashes).*'),
 					backgroundId: background.id,
 					backgroundDescription: background.description,
@@ -73,7 +73,7 @@ function parse_JSON_background(searchQuery) {
 function parse_JSON_icon(searchQuery) {
 	let icons
 	get_JSON(
-		'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json'
+		'https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json'
 	).then((data) => {
 		icons = data
 		var listOfResults = []
@@ -82,7 +82,7 @@ function parse_JSON_icon(searchQuery) {
 			if (icon.title.toLowerCase().includes(searchQuery.toLowerCase())) {
 				iconDict = {
 					iconTitle: icon.title,
-					iconImageLink: `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${icon.id}.jpg`,
+					iconImageLink: `https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${icon.id}.jpg`,
 					iconReleaseYear: icon.yearReleased,
 					iconId: icon.id,
 				}
